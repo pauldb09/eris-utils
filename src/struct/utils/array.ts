@@ -4,7 +4,8 @@ export class ExtendedArray<T = any> extends Array{
 
     public constructor(...entries: Array<any>){
         super();
-        this.push(...entries)
+        if(!entries.length) return
+        entries.forEach(e=> this.push(e))
     }
 
     remove(value: any){
