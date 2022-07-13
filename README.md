@@ -17,7 +17,7 @@ Then you can use it on your own bot, here it a little example with javascript:
 ```js
 
 const Eris = require("eris")
-const { CollectorManager, SweeperManager, extendClient } = require("eris-utils")
+const { CollectorManager, SweeperManager, extendClient } = require("eris-utilities")
 
 const client = new Eris("BOT_TOKEN",{
     intents: ["guilds"]
@@ -33,7 +33,7 @@ client.on("interactionCreate", interaction=>{
              channelId: interaction.channel.id,
              userId: interaction.member.id,
              time: 6000,
-             filter: (msg) => msg.content === "pong";
+             filter: (msg) => msg.content === "pong",
         })
 
         collector.on("answer", msg =>{

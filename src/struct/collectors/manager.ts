@@ -56,6 +56,7 @@ export class collectorManager extends EventEmitter<collectorManagerEvents> {
                 try {
                     col.filter(context);
                 } catch (error) {
+                    console.log(error)
                     list.remove(col)
                     throw new Error("Your code passed in collector.filter() has an error: " + error + "");
                 }
