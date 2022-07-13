@@ -6,7 +6,7 @@ const client = new Eris("ODEyMDIyNDM3ODk4MDkyNjA0.GXQvCj.gHn7wlvAB9QGMxrjNZ7wLaG
 });
 
 // extendClient(client) OR:
-client.collectors = new util.default.collectorManager(client)
+client.collectors = new util.collectorManager(client)
 
 client.on("messageCreate", message => {
     message.channel.createMessage("Answer with pong to interact!")
