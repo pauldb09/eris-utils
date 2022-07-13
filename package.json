@@ -1,0 +1,23 @@
+{
+  "name": "eris-utils",
+  "version": "1.0.0",
+  "description": "A cool package that adds collectors, sweepers and some other things to eris!",
+  "main": "/dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pauldb09/eris-utils.git"
+  },
+  "author": "Pauldb09",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pauldb09/eris-utils/issues"
+  },
+  "homepage": "https://github.com/pauldb09/eris-utils#readme",
+  "dependencies": {
+    "eris": "^0.17.1",
+    "tiny-typed-emitter": "^2.1.0"
+  }
+}
