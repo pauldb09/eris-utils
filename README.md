@@ -7,7 +7,7 @@ Adds collectors, sweepers and some other things to eris
 Start by downloading the package from npm using the command line:
 
 ```
-npm install eris-utils@latest
+npm install eris-utilities@latest
 ```
 
 Then you can use it on your own bot, here it a little example with javascript:
