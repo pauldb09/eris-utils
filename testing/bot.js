@@ -1,12 +1,12 @@
 const Eris = require("eris")
-const util = require("eris-utilities");
+const { collectorManager } = require("eris-utilities");
 console.log()
 const client = new Eris("ODEyMDIyNDM3ODk4MDkyNjA0.GXQvCj.gHn7wlvAB9QGMxrjNZ7wLaGe0zH90UM4hnbv7c", {
     intents: ["guilds", "guildMessages"]
 });
 
 // extendClient(client) OR:
-client.collectors = new util.collectorManager(client)
+client.collectors = new collectorManager(client)
 
 client.on("messageCreate", message => {
     message.channel.createMessage("Answer with pong to interact!")
