@@ -1,5 +1,6 @@
 import { TypedEmitter as EventEmitter } from "tiny-typed-emitter"
 import { collectorCreateData } from "../typings";
+import { generateId } from "../utils/id";
 
 export class Collector extends EventEmitter {
     public channelId: string;
@@ -15,11 +16,19 @@ export class Collector extends EventEmitter {
         super();
         this.channelId = data.channelId;
         this.userId = data.userId ?? null;
-        this.collectorId = "";
+        this.collectorId = generateId(10);
         this.answers = [];
         this.ended = false;
         this.time = data.time;
         this.type = data.type;
+
+    }
+
+    /**
+   * Ends the collector and triggers the end event. Use .destroy() if you don't want to trigger it
+   * @returns 
+   */
+    public end() {
 
     }
 }
