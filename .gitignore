@@ -126,3 +126,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 testing/bot.js
+testing/bot.js

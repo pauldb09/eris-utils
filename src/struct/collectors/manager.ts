@@ -54,7 +54,6 @@ export class collectorManager extends EventEmitter<collectorManagerEvents> {
         if (list && list.length) {
             for (let col of list) {
                 if(col.userId && col.userId !== userId) return;
-                col = list[col];
                 try {
                     col.filter(context);
                 } catch (error) {

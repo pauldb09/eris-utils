@@ -11,7 +11,7 @@ export class Collector extends EventEmitter <collectorEvents>{
     public time: number;
     public readonly collectorId: string;
     private readonly manager: collectorManager
-    private filter: (m: any) => any;
+    public filter: (m: any) => any;
     public readonly type: "INTERACTION" | "MESSAGE" | undefined;
 
     public constructor(data: collectorCreateData, manager: collectorManager) {
