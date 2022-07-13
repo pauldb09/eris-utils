@@ -10,7 +10,7 @@ export class collectorManager extends EventEmitter<collectorManagerEvents> {
         super();
         if (!client) throw new Error("You didn't passed any client to the collectorManager class");
         this.client = client;
-        this.collectors = new ExtendedArray([]);
+        this.collectors = new ExtendedArray();
 
         this.client.on("messageCreate", m => this.handle(m))
         this.client.on("interactionCreate", m => this.handle(m))
