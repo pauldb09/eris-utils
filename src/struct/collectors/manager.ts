@@ -1,13 +1,12 @@
-import Eris from "eris";
 import { TypedEmitter as EventEmitter } from "tiny-typed-emitter"
 import { collectorCreateData, collectorData, collectorManagerEvents } from "../typings";
 import { ExtendedArray } from "../utils/array";
 import { Collector } from "./collector";
 
 export class collectorManager extends EventEmitter<collectorManagerEvents> {
-    client: Eris.Client;
+    client: any;
     collectors: ExtendedArray<Collector>
-    public constructor(client: Eris.Client) {
+    public constructor(client: any) {
         super();
         if (!client) throw new Error("You didn't passed any client to the collectorManager class");
         this.client = client;
