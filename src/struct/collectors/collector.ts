@@ -1,6 +1,7 @@
 import { TypedEmitter as EventEmitter } from "tiny-typed-emitter"
-import { collectorCreateData } from "../typings";
+import { collectorCreateData, collectorData } from "../typings";
 import { generateId } from "../utils/id";
+import { collectorManager } from "./manager";
 
 export class Collector extends EventEmitter {
     public channelId: string;
@@ -8,11 +9,12 @@ export class Collector extends EventEmitter {
     public answers: Array<String>;
     public ended: boolean;
     public time: number;
-    private collectorId: string;
+    public readonly collectorId: string;
+    private readonly manager: collectorManager
     private filter: (m: any) => any;
-    private type: "BUTTON" | "MESSAGE";
+    public readonly type: "INTERACTION" | "MESSAGE" | undefined;
 
-    public constructor(data: collectorCreateData) {
+    public constructor(data: collectorCreateData, manager: collectorManager) {
         super();
         this.channelId = data.channelId;
         this.userId = data.userId ?? null;
@@ -22,13 +24,16 @@ export class Collector extends EventEmitter {
         this.time = data.time;
         this.type = data.type;
 
+        this.manager = manager;
     }
 
     /**
-   * Ends the collector and triggers the end event. Use .destroy() if you don't want to trigger it
-   * @returns 
-   */
+    * Ends a collector and triggers the end event
+    * @returns {void}
+    */
     public end() {
-
+        this.manager.deleteCollector(this);
+        this.emit("end", this)
+        return this;
     }
 }

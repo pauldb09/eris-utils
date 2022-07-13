@@ -4,9 +4,6 @@ import { Collector } from "../collectors/collector";
 export interface collectorData extends EventEmitter {
     channelId: string;
     userId?: string;
-    collectorId: string;
-    answers: Array<string>
-    ended: boolean;
     time: number;
     filter: (m: any) => any;
 }
@@ -14,11 +11,10 @@ export interface collectorData extends EventEmitter {
 export interface collectorCreateData extends EventEmitter {
     channelId: string;
     userId?: string;
-    collectorId: string;
-    answers: Array<string>
-    ended: boolean;
+    collectorId?: string;
+    ended?: boolean;
     time: number;
-    type: "BUTTON" | "MESSAGE"
+    type?: "INTERACTION" | "MESSAGE"
     filter: (m: any) => any;
 }
 
