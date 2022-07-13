@@ -1,6 +1,6 @@
 {
     "name": "eris-utilities",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "A cool package that adds collectors, sweepers and some other things to eris!",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
