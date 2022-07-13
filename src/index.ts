@@ -1,3 +1,4 @@
 import { collectorManager } from "./struct/collectors/manager";
-
-export default { collectorManager}
+import { SweeperManager } from "./struct/sweepers/manager"
+import { extend } from "./struct/utils/extend";
+export default { collectorManager, extend: extend, SweeperManager}

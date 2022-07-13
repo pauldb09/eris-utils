@@ -10,8 +10,14 @@ export class collectorManager extends EventEmitter{
         this.client = client;        
     }
 
+    private _validateOptions(options: collectorData){
+        if(!options || typeof(options) !== "object") throw new Error("The options provided to create the collector are missing or are not an object");
+        
+    }
+
     public createMessageCollector(collector: collectorData){
 
     }
 
 }
+
