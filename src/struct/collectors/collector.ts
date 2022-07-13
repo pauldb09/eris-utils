@@ -25,6 +25,9 @@ export class Collector extends EventEmitter <collectorEvents>{
         this.type = data.type;
 
         this.manager = manager;
+        setTimeout(()=>{
+            this.end()
+        }, this.time)
     }
 
     /**
