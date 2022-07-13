@@ -29,5 +29,6 @@ export interface collectorManagerEvents {
 
 export interface collectorEvents {
 
-    end: (collector: Collector) => any
+    end: (collector: Collector) => any;
+    response: (res: any) => any
 }

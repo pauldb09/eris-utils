@@ -1,9 +1,9 @@
 import { TypedEmitter as EventEmitter } from "tiny-typed-emitter"
-import { collectorCreateData, collectorData } from "../typings";
+import { collectorCreateData, collectorData, collectorEvents } from "../typings";
 import { generateId } from "../utils/id";
 import { collectorManager } from "./manager";
 
-export class Collector extends EventEmitter {
+export class Collector extends EventEmitter <collectorEvents>{
     public channelId: string;
     public userId?: string | null;
     public answers: Array<String>;

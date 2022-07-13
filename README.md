@@ -29,6 +29,7 @@ client.collectors = new CollectorManager(client);
 
 client.on("interactionCreate", interaction=>{
     if(interaction.data.name === "ping"){
+        interaction.createMessage("Answer with pong to interact!")
         const collector = client.collectors.createMessageComponentsCollector({
              channelId: interaction.channel.id,
              userId: interaction.member.id,
@@ -36,7 +37,9 @@ client.on("interactionCreate", interaction=>{
              filter: (msg) => msg.content === "pong";
         })
 
-        collector.on("answer")
+        collector.on("answer", msg =>{
+            
+        })
     }
 })
 
