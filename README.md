@@ -8,7 +8,6 @@ Start by downloading the package from npm using the command line:
 
 ```
 npm install eris-utils@latest
-
 ```
 
 Then you can use it on your own bot, here it a little example with javascript:
@@ -30,7 +29,7 @@ client.collectors = new CollectorManager(client);
 client.on("interactionCreate", interaction=>{
     if(interaction.data.name === "ping"){
         interaction.createMessage("Answer with pong to interact!")
-        const collector = client.collectors.createMessageComponentsCollector({
+        const collector = client.collectors.createMessageCollector({
              channelId: interaction.channel.id,
              userId: interaction.member.id,
              time: 6000,
@@ -38,7 +37,7 @@ client.on("interactionCreate", interaction=>{
         })
 
         collector.on("answer", msg =>{
-            
+
         })
     }
 })
