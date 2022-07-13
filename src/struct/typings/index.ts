@@ -26,3 +26,8 @@ export interface collectorManagerEvents {
     collectorInvalidAnswer: (collector: Collector, client) => any;
 
 }
+
+export interface collectorEvents {
+
+    end: (collector: Collector) => any
+}

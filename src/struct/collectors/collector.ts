@@ -32,8 +32,8 @@ export class Collector extends EventEmitter {
     * @returns {void}
     */
     public end() {
-        this.manager.deleteCollector(this);
         this.emit("end", this)
+        this.manager.deleteCollector(this);
         return this;
     }
 }
