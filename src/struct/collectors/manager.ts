@@ -13,12 +13,12 @@ export class collectorManager extends EventEmitter<collectorManagerEvents> {
         this.collectors = new ExtendedArray();
 
         this.client.on("messageCreate", m => {
-            if(m.author.bot) return
-             this.handle(m)
+            if (m.author.bot) return
+            this.handle(m)
         })
         this.client.on("interactionCreate", m => {
-            if(m.member && m.member.bot) return
-            if(m.user && m.user.bot) return
+            if (m.member && m.member.bot) return
+            if (m.user && m.user.bot) return
             this.handle(m)
         })
     }
@@ -32,7 +32,7 @@ export class collectorManager extends EventEmitter<collectorManagerEvents> {
         if (!collector || typeof (collector) !== "string" && typeof (collector) !== "object") throw new Error("You need to provide a string or collector to deleteCollector");
         const found = this.collectors.find(col => col.collectorId === (typeof (collector) === "string" ? collector : collector.collectorId))
         if (!found) throw new Error("Requested to end a collector that doesn't / no longer exists");
-        this.collectors.remove(found);
+        return this.collectors.filter(col=>col.collectorId !== found.collectorId)
     }
 
     public createMessageCollector(collector: collectorData) {
@@ -55,13 +55,14 @@ export class collectorManager extends EventEmitter<collectorManagerEvents> {
 
     public handle(context: any) {
         let userId = context.member && context.member.id ? context.member.id : context.author && context.author.id ? context.author.id : context.user && context.user.id ? context.user.id : "ERROR";
-        if(userId === this.client.user.id) return
+        if (userId === this.client.user.id) return
         let type = context.version ? "INTERACTION" : "MESSAGE";
         if (userId === "ERROR") throw new Error("Could not resolve an user id for message");
         const list = this.collectors.filter(col => col.channelId === context.channel.id && col.type === type && !col.ended)
         if (list && list.length) {
             for (let col of list) {
-                if(col.userId && col.userId !== userId) return;
+                if(col.startMessage === context.id) return
+                if (col.userId && col.userId !== userId) return;
                 try {
                     col.filter(context);
                 } catch (error) {
@@ -70,7 +71,11 @@ export class collectorManager extends EventEmitter<collectorManagerEvents> {
                 }
                 if (!col.filter(context)) return
                 col.emit("response", context);
+                this.emit("collectorAnswer", col, this.client)
                 col.answers.push(context)
+                if ((col.answers.length + 1) == col.maxAnswers) {
+                    col.end("MAX_ANSWERS")
+                }
             }
         }
 

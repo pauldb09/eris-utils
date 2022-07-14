@@ -9,7 +9,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "eris-utilities": "^0.1.2",
+        "eris-utilities": "^0.1.7",
         "eris-utils": "^0.2.8"
     }
 }

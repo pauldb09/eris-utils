@@ -36,7 +36,11 @@ client.on("interactionCreate", interaction=>{
              filter: (msg) => msg.content === "pong",
         })
 
-        collector.on("answer", msg =>{
+        collector.on("response", msg =>{
+
+        })
+
+        collector.on("end", msg =>{
 
         })
     }

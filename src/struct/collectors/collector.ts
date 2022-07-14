@@ -3,9 +3,11 @@ import { collectorCreateData, collectorData, collectorEvents } from "../typings"
 import { generateId } from "../utils/id";
 import { collectorManager } from "./manager";
 
-export class Collector extends EventEmitter <collectorEvents>{
+export class Collector extends EventEmitter<collectorEvents>{
     public channelId: string;
     public userId?: string | null;
+    public startMessage: string;
+    public maxAnswers: number;
     public answers: Array<String>;
     public ended: boolean;
     public time: number;
@@ -22,12 +24,14 @@ export class Collector extends EventEmitter <collectorEvents>{
         this.collectorId = generateId(10);
         this.answers = [];
         this.ended = false;
+        this.maxAnswers = data.maxAnswers;
+        this.startMessage = data.startMessage;
         this.time = data.time;
         this.type = data.type;
 
         this.manager = manager;
-        setTimeout(()=>{
-            this.end()
+        setTimeout(() => {
+            this.end("TIME")
         }, this.time)
     }
 
@@ -35,8 +39,10 @@ export class Collector extends EventEmitter <collectorEvents>{
     * Ends a collector and triggers the end event
     * @returns {void}
     */
-    public end() {
-        this.emit("end", this)
+    public end(reason) {
+        if(!reason || !["TIME" , "USER" ,"MAX_ANSWERS"].includes(reason)) reason = "USER"
+        this.emit("end", reason, this);
+        this.manager.emit("collectorEnded", reason, this, this.manager.client)
         this.manager.deleteCollector(this);
         return this;
     }
