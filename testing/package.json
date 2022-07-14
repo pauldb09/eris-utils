@@ -1,15 +1,15 @@
 {
-  "name": "testing",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "eris-utilities": "^0.1.0",
-    "eris-utils": "^0.2.8"
-  }
+    "name": "testing",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "eris-utilities": "^0.1.2",
+        "eris-utils": "^0.2.8"
+    }
 }

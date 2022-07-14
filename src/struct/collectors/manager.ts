@@ -55,9 +55,10 @@ export class collectorManager extends EventEmitter<collectorManagerEvents> {
 
     public handle(context: any) {
         let userId = context.member && context.member.id ? context.member.id : context.author && context.author.id ? context.author.id : context.user && context.user.id ? context.user.id : "ERROR";
+        if(userId === this.client.user.id) return
         let type = context.version ? "INTERACTION" : "MESSAGE";
         if (userId === "ERROR") throw new Error("Could not resolve an user id for message");
-        const list = new ExtendedArray(this.collectors.filter(col => col.channelId === context.channel.id && col.type === type && !col.ended))
+        const list = this.collectors.filter(col => col.channelId === context.channel.id && col.type === type && !col.ended)
         if (list && list.length) {
             for (let col of list) {
                 if(col.userId && col.userId !== userId) return;
@@ -65,7 +66,6 @@ export class collectorManager extends EventEmitter<collectorManagerEvents> {
                     col.filter(context);
                 } catch (error) {
                     console.log(error)
-                    list.remove(col)
                     throw new Error("Your code passed in collector.filter() has an error: " + error + "");
                 }
                 if (!col.filter(context)) return

@@ -18,6 +18,7 @@ export class Collector extends EventEmitter <collectorEvents>{
         super();
         this.channelId = data.channelId;
         this.userId = data.userId ?? null;
+        this.filter = data.filter;
         this.collectorId = generateId(10);
         this.answers = [];
         this.ended = false;
