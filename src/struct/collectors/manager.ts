@@ -12,8 +12,15 @@ export class collectorManager extends EventEmitter<collectorManagerEvents> {
         this.client = client;
         this.collectors = new ExtendedArray();
 
-        this.client.on("messageCreate", m => this.handle(m))
-        this.client.on("interactionCreate", m => this.handle(m))
+        this.client.on("messageCreate", m => {
+            if(m.author.bot) return
+             this.handle(m)
+        })
+        this.client.on("interactionCreate", m => {
+            if(m.member && m.member.bot) return
+            if(m.user && m.user.bot) return
+            this.handle(m)
+        })
     }
 
     private _validateOptions(options: collectorData) {
