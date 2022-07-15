@@ -48,6 +48,7 @@ export class collectorManager extends EventEmitter<collectorManagerEvents> {
     public createMessageComponentsCollector(collector: collectorData) {
         if (!this._validateOptions(collector)) return;
         (collector as collectorCreateData).type = "INTERACTION";
+        collector.startMessage = null;
         const collectorCreated = new Collector(collector, this);
         this.collectors.push(collectorCreated);
         this.emit("collectorCreate", collectorCreated, this.client)
@@ -62,7 +63,7 @@ export class collectorManager extends EventEmitter<collectorManagerEvents> {
         const list = this.collectors.filter(col => col.channelId === context.channel.id && col.type === type && !col.ended)
         if (list && list.length) {
             for (let col of list) {
-                if(col.startMessage === context.id) return
+                if(col.startMessage && col.startMessage === context.id) return
                 if (col.userId && col.userId !== userId) return;
                 try {
                     col.filter(context);
