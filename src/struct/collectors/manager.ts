@@ -5,12 +5,12 @@ import { Collector } from "./collector";
 
 export class collectorManager extends EventEmitter<collectorManagerEvents> {
     client: any;
-    collectors: ExtendedArray<Collector>
+    collectors: Array<Collector>
     public constructor(client: any) {
         super();
         if (!client) throw new Error("You didn't passed any client to the collectorManager class");
         this.client = client;
-        this.collectors = new ExtendedArray();
+        this.collectors = [];
 
         this.client.on("messageCreate", m => {
             if (m.author.bot) return
@@ -32,14 +32,15 @@ export class collectorManager extends EventEmitter<collectorManagerEvents> {
         if (!collector || typeof (collector) !== "string" && typeof (collector) !== "object") throw new Error("You need to provide a string or collector to deleteCollector");
         const found = this.collectors.find(col => col.collectorId === (typeof (collector) === "string" ? collector : collector.collectorId))
         if (!found) throw new Error("Requested to end a collector that doesn't / no longer exists");
-        return this.collectors.filter(col=>col.collectorId !== found.collectorId)
+        this.collectors = this.collectors.filter(col=>col.collectorId !== found.collectorId);
+        return true;
     }
 
     public createMessageCollector(collector: collectorData) {
         if (!this._validateOptions(collector)) return;
         (collector as collectorCreateData).type = "MESSAGE";
         const collectorCreated = new Collector(collector, this);
-        this.collectors.add(collectorCreated);
+        this.collectors.push(collectorCreated);
         this.emit("collectorCreate", collectorCreated, this.client)
         return collectorCreated;
     }
@@ -48,7 +49,7 @@ export class collectorManager extends EventEmitter<collectorManagerEvents> {
         if (!this._validateOptions(collector)) return;
         (collector as collectorCreateData).type = "INTERACTION";
         const collectorCreated = new Collector(collector, this);
-        this.collectors.add(collectorCreated);
+        this.collectors.push(collectorCreated);
         this.emit("collectorCreate", collectorCreated, this.client)
         return collectorCreated;
     }
