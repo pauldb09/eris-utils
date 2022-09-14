@@ -15,6 +15,7 @@ export class Collector extends EventEmitter<collectorEvents>{
     private readonly manager: collectorManager
     public filter: (m: any) => any;
     public readonly type: "INTERACTION" | "MESSAGE" | undefined;
+    private readonly timeout: ReturnType<typeof setTimeout>;
 
     public constructor(data: collectorCreateData, manager: collectorManager) {
         super();
@@ -30,7 +31,7 @@ export class Collector extends EventEmitter<collectorEvents>{
         this.type = data.type;
 
         this.manager = manager;
-        setTimeout(() => {
+        this.timeout = setTimeout(() => {
             this.end("TIME")
         }, this.time)
     }
@@ -41,6 +42,7 @@ export class Collector extends EventEmitter<collectorEvents>{
     */
     public end(reason) {
         if(!reason || !["TIME" , "USER" ,"MAX_ANSWERS"].includes(reason)) reason = "USER"
+        clearTimeout(this.timeout)
         this.emit("end", reason, this);
         this.manager.emit("collectorEnded", reason, this, this.manager.client)
         this.manager.deleteCollector(this);
